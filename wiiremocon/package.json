@@ -1,0 +1,17 @@
+{
+  "name": "wiiremocon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "wiiremocon.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "node-gyp rebuild"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "gypfile": true,
+  "dependencies": {
+    "nan": "^2.14.1"
+  }
+}
