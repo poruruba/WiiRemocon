@@ -83,7 +83,7 @@ var vue_options = {
 
             var labels = [];
             for( var i = 0 ; i < NUM_OF_DATA ; i++ )
-                labels.push( -(NUM_OF_DATA - i - 1) * UPDATE_INTERVAL );
+                labels.push( -(NUM_OF_DATA - i - 1) * this.update_interval );
 
             for( var i = 0 ; i < myChart_acc.data.datasets.length ; i++ ){
                 myChart_acc.data.datasets[i].data = [];
