@@ -5,8 +5,12 @@ const mqtt = require('mqtt');
 require('dotenv').config();
 
 const MQTT_HOST = process.env.MQTT_HOST || '【MQTTブローカのURL】';
-const MQTT_TOPIC_CMD = process.env.MQTT_TOPIC_CMD || '【In方向のトピック名】';
-const MQTT_TOPIC_EVT = process.env.MQTT_TOPIC_EVT || '【Out方向のトピック名】';
+const MQTT_CLIENT_ID = process.argv[2] || '【クライアントID】';
+const MQTT_TOPIC_CMD = process.argv[3] || '【In方向のトピック名】';
+const MQTT_TOPIC_EVT = process.argv[4] || '【Out方向のトピック名】';
+console.log("MQTT_CLIENT_ID: " + MQTT_CLIENT_ID);
+console.log("MQTT_TOPIC_CMD: " + MQTT_TOPIC_CMD);
+console.log("MQTT_TOPIC_EVT: " + MQTT_TOPIC_EVT);
 
 const WIIREMOTE_CMD_EVT = 0x00;
 const WIIREMOTE_CMD_ERR = 0xff;
@@ -24,7 +28,7 @@ const WIIREMOTE_CMD_READ_REG_LONG = 0x0a;
 var g_address = null;
 
 const wii = new WiiRemocon();
-const client = mqtt.connect(MQTT_HOST);
+const client = mqtt.connect(MQTT_HOST, { clientId: MQTT_CLIENT_ID });
 
 client.on('connect', () => {
   console.log('mqtt.connected.');
