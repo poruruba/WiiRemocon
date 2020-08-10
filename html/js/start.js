@@ -2,9 +2,10 @@
 
 //var vConsole = new VConsole();
 
-const mqtt_url = "【MQTTブローカのURL(Webソケット接続)】";
+const mqtt_url = "ws://raspberry.myhome.or.jp:1884/";
 var mqtt_client = null;
 
+const MQTT_CLIENT_ID = "browser";
 const MQTT_TOPIC_CMD = 'testwii_cmd';
 const MQTT_TOPIC_EVT = 'testwii_evt';
 
@@ -33,7 +34,8 @@ var vue_options = {
         chk_nck_btns: [],
         battery: 0,
         wii_type: "remocon",
-        btaddress: "",
+        btaddress: "a4:5c:27:1c:b8:63",
+//        btaddress: "00:1e:35:b9:e8:2c",
         battery: 0,
         reporting_mode: WIIREMOTE_REPORTID_BTNS,
         flags: [],
@@ -44,6 +46,9 @@ var vue_options = {
         connected: false,
         leds : [],
         rumble: false,
+        topic_cmd: MQTT_TOPIC_CMD,
+        topic_evt: MQTT_TOPIC_EVT,
+        client_id: MQTT_CLIENT_ID,
     },
     computed: {
     },
@@ -141,7 +146,7 @@ var vue_options = {
         mqtt_onMessagearrived: async function(message){
             try{
                 var topic = message.destinationName;
-                if( topic == MQTT_TOPIC_EVT){
+                if( topic == this.topic_evt){
                     var msg = JSON.parse(message.payloadString);
                     console.log(msg);
                     if( msg.rsp == WIIREMOTE_CMD_EVT){
@@ -226,9 +231,9 @@ var vue_options = {
             console.log("MQTT.onConnect");
             this.connected = true;
 
-            wii = new WiiClient(mqtt_client, MQTT_TOPIC_CMD);
+            wii = new WiiClient(mqtt_client, this.topic_cmd);
             this.init_graph();
-            mqtt_client.subscribe(MQTT_TOPIC_EVT);
+            mqtt_client.subscribe(this.topic_evt);
         },
         connect_wii: function(){
             if(!this.connected)
@@ -255,7 +260,7 @@ var vue_options = {
             wii.readRegisterLong(WIIREMOTE_ADDRESS_BALANCE_CALIBRATION, 0x20);
         },
         connect_mqtt: async function(){
-            mqtt_client = new Paho.MQTT.Client(this.mqtt_url, "browser");
+            mqtt_client = new Paho.MQTT.Client(this.mqtt_url, this.client_id );
             mqtt_client.onMessageArrived = this.mqtt_onMessagearrived;
             mqtt_client.onConnectionLost = this.mqtt_onConnectionLost;
 
