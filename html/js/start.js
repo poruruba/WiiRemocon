@@ -2,7 +2,7 @@
 
 //var vConsole = new VConsole();
 
-const mqtt_url = "ws://raspberry.myhome.or.jp:1884/";
+const mqtt_url = "【MQTTブローカのURL(Webソケット接続)】";
 var mqtt_client = null;
 
 const MQTT_CLIENT_ID = "browser";
@@ -34,8 +34,7 @@ var vue_options = {
         chk_nck_btns: [],
         battery: 0,
         wii_type: "remocon",
-        btaddress: "a4:5c:27:1c:b8:63",
-//        btaddress: "00:1e:35:b9:e8:2c",
+        btaddress: "",
         battery: 0,
         reporting_mode: WIIREMOTE_REPORTID_BTNS,
         flags: [],
