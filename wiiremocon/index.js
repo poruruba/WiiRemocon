@@ -4,7 +4,7 @@ const WiiRemocon = require('./wiiremocon');
 const mqtt = require('mqtt');
 require('dotenv').config();
 
-const MQTT_HOST = process.env.MQTT_HOST || 'mqtt://raspberry.myhome.or.jp:1883';
+const MQTT_HOST = process.env.MQTT_HOST || '【MQTTブローカのURL】';
 const MQTT_TOPIC_CMD = process.env.MQTT_TOPIC_CMD || 'testwii_cmd';
 const MQTT_TOPIC_EVT = process.env.MQTT_TOPIC_EVT || 'testwii_evt';
 
