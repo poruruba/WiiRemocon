@@ -2,7 +2,7 @@
 
 //var vConsole = new VConsole();
 
-const mqtt_url = "yMQTTƒuƒ[ƒJ‚ÌURL(Webƒ\ƒPƒbƒgÚ‘±)z";
+const mqtt_url = "ã€MQTTãƒ–ãƒ­ãƒ¼ã‚«ã®URL(Webã‚½ã‚±ãƒƒãƒˆæ¥ç¶š)ã€‘";
 var mqtt_client = null;
 
 const MQTT_TOPIC_CMD = 'testwii_cmd';
