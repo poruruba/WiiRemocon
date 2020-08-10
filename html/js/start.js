@@ -268,10 +268,6 @@ var vue_options = {
     },
     mounted: function(){
         proc_load();
-
-        // setTimeout(() =>{
-        //     this.init_graph();
-        // }, 1000);
     }
 };
 vue_add_methods(vue_options, methods_bootstrap);
