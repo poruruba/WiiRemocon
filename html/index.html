@@ -48,7 +48,7 @@
           <label>topic_cmd</label> <input type="text" class="form-control" v-model="topic_cmd">
           <label>topic_evt</label> <input type="text" class="form-control" v-model="topic_evt">
         </div>
-        <div class="form-inline">
+      <div class="form-inline">
           <button class="btn btn-default btn-info" v-on:click="connect_mqtt" v-bind:disabled="connected">MQTT Connect</button>
           <label>connected</label> {{connected}}
         </div>
@@ -112,12 +112,12 @@
         </span>
         <br>
         <span v-if="wii_type=='remocon'">
-          <label>rumble<input type="checkbox" v-model="rumble" v-on:change="change_rumble_led"></label>&nbsp;&nbsp;&nbsp;
-          <label>leds</label>
-          <label class="checkbox-inline"><input type="checkbox" v-model="leds[0]" v-on:change="change_rumble_led">1</label>
-          <label class="checkbox-inline"><input type="checkbox" v-model="leds[1]" v-on:change="change_rumble_led">2</label>
-          <label class="checkbox-inline"><input type="checkbox" v-model="leds[2]" v-on:change="change_rumble_led">3</label>
-          <label class="checkbox-inline"><input type="checkbox" v-model="leds[3]" v-on:change="change_rumble_led">4</label>
+        <label>rumble<input type="checkbox" v-model="rumble" v-on:change="change_rumble_led"></label>&nbsp;&nbsp;&nbsp;
+        <label>leds</label>
+        <label class="checkbox-inline"><input type="checkbox" v-model="leds[0]" v-on:change="change_rumble_led">1</label>
+        <label class="checkbox-inline"><input type="checkbox" v-model="leds[1]" v-on:change="change_rumble_led">2</label>
+        <label class="checkbox-inline"><input type="checkbox" v-model="leds[2]" v-on:change="change_rumble_led">3</label>
+        <label class="checkbox-inline"><input type="checkbox" v-model="leds[3]" v-on:change="change_rumble_led">4</label>
         </span>
         <span v-if="wii_type=='balance'">
           <label>leds</label>
