@@ -123,10 +123,8 @@ var vue_options = {
                 myChart_nck_acc.data.datasets[2].data.shift();
                 myChart_nck_acc.update();
 
-                for( var i = NUM_OF_STICK_DATA - 1 ; i >= 1 ; i-- ){
-                    myChart_nck_stk.data.datasets[0].data[i] = myChart_nck_stk.data.datasets[0].data[i - 1];
-                }
-                myChart_nck_stk.data.datasets[0].data[0] = { x: nck_evt.stk_x, y: nck_evt.stk_y };
+                myChart_nck_stk.data.datasets[0].data.push({ x: nck_evt.stk_x, y: nck_evt.stk_y });
+                myChart_nck_stk.data.datasets[0].data.shift();
                 myChart_nck_stk.update();
             }
 
