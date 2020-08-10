@@ -29,7 +29,6 @@ var vue_options = {
 
         mqtt_url: mqtt_url,
         update_interval: UPDATE_INTERVAL,
-        label_ctr: 0,
         chk_btns: [],
         chk_nck_btns: [],
         battery: 0,
@@ -98,10 +97,9 @@ var vue_options = {
 
             for( var i = 0 ; i < myChart_nck_stk.data.datasets.length ; i++ ){
                 myChart_nck_stk.data.datasets[i].data = [];
-                for( var j = 0 ; j < NUM_OF_DATA ; j++ )
+                for( var j = 0 ; j < NUM_OF_STICK_DATA ; j++ )
                     myChart_nck_stk.data.datasets[i].data.push(NaN);
             }
-            myChart_nck_stk.data.labels = labels;
 
             timer = setInterval(() =>{
                 this.update_graph();
