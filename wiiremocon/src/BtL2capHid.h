@@ -12,11 +12,14 @@ public:
 
   static NAN_METHOD(New);
   static NAN_METHOD(Connect);
+  static NAN_METHOD(Disconnect);
   static NAN_METHOD(Write);
   static NAN_METHOD(Read);
 
   int _socket_11;
   int _socket_13;
+
+  void disconnectSync(void);
 
 private:
   BtL2capHid();

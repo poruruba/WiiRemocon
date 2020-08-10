@@ -25,16 +25,14 @@ public:
     {}
 
     // 非同期処理の中身
-    void Execute()
-    {
+    void Execute(){
 //      printf("read call\n");
     	result = read(p->_socket_13, buffer, sizeof(buffer));
 //      printf("read result=%d\n", result);
     }
 
     // 非同期処理が完了したとき呼び出される
-    void HandleOKCallback()
-    {
+    void HandleOKCallback(){
     	if( result >= 0 ){
 	        v8::Local<v8::Value> callbackArgs[] = {
 	            Nan::Null(),
@@ -65,8 +63,9 @@ public:
     {}
 
     // 非同期処理の中身
-    void Execute()
-    {
+    void Execute(){
+      p->disconnectSync();
+
       for( int i = 0 ; i < retry ; i++ ){
         int s_11 = socket(AF_BLUETOOTH, SOCK_SEQPACKET, BTPROTO_L2CAP);
         struct sockaddr_l2 addr = { 0 };
@@ -75,7 +74,7 @@ public:
         memmove( addr.l2_bdaddr.b, p_addr, 6);
 
         result = connect(s_11, (struct sockaddr *)&addr, sizeof(addr));
-//        printf("s_11 connect result=%d\n", result);
+        printf("s_11 connect result=%d\n", result);
         if( result != 0 )
           continue;
         
@@ -83,7 +82,7 @@ public:
         addr.l2_psm = htobs(L2CAP_PSM_HID_INTR);
 
         result = connect(s_13, (struct sockaddr *)&addr, sizeof(addr));
-//        printf("s_13 connect result=%d\n", result);
+        printf("s_13 connect result=%d\n", result);
         if( result != 0 ){
           close(s_11);
           continue;
@@ -97,8 +96,7 @@ public:
     }
 
     // 非同期処理が完了したとき呼び出される
-    void HandleOKCallback()
-    {
+    void HandleOKCallback(){
     	if( result >= 0 ){
 	        v8::Local<v8::Value> callbackArgs[] = {
 	            Nan::Null(),
@@ -135,19 +133,31 @@ NAN_MODULE_INIT(BtL2capHid::Init) {
   tmpl->SetClassName(Nan::New("BtL2capHid").ToLocalChecked());
 
   Nan::SetPrototypeMethod(tmpl, "connect", Connect);
+  Nan::SetPrototypeMethod(tmpl, "disconnect", Disconnect);
   Nan::SetPrototypeMethod(tmpl, "read", Read);
   Nan::SetPrototypeMethod(tmpl, "write", Write);
 
   target->Set(Nan::New("BtL2capHid").ToLocalChecked(), tmpl->GetFunction());
 }
 
+NAN_METHOD(BtL2capHid::New) {
+  Nan::HandleScope scope;
+
+  BtL2capHid* p = new BtL2capHid();
+  p->Wrap(info.This());
+  p->This.Reset(info.This());
+  info.GetReturnValue().Set(info.This());
+}
+
 BtL2capHid::BtL2capHid() :
   node::ObjectWrap() {
+
+  this->_socket_11 = -1;
+  this->_socket_13 = -1;
 }
 
 BtL2capHid::~BtL2capHid() {
-  close(this->_socket_13);
-  close(this->_socket_11);
+  disconnectSync();
 }
 
 void BtL2capHid::writeSync(int index, char* data, int length) {
@@ -159,13 +169,44 @@ void BtL2capHid::writeSync(int index, char* data, int length) {
   }
 }
 
-NAN_METHOD(BtL2capHid::New) {
+void BtL2capHid::emitErrnoError() {
   Nan::HandleScope scope;
 
-  BtL2capHid* p = new BtL2capHid();
-  p->Wrap(info.This());
-  p->This.Reset(info.This());
-  info.GetReturnValue().Set(info.This());
+  Local<Object> globalObj = Nan::GetCurrentContext()->Global();
+  Local<Function> errorConstructor = Local<Function>::Cast(globalObj->Get(Nan::New("Error").ToLocalChecked()));
+
+  Local<Value> constructorArgs[1] = {
+    Nan::New(strerror(errno)).ToLocalChecked()
+  };
+
+  Local<Value> error = errorConstructor->NewInstance(1, constructorArgs);
+
+  Local<Value> argv[2] = {
+    Nan::New("error").ToLocalChecked(),
+    error
+  };
+
+  Nan::MakeCallback(Nan::New<Object>(this->This), Nan::New("emit").ToLocalChecked(), 2, argv);
+}
+
+void BtL2capHid::disconnectSync(void) {
+  if( this->_socket_13 != -1 ){
+    close(this->_socket_13);
+    this->_socket_13 = -1;
+  }
+  if( this->_socket_11 != -1 ){
+    close(this->_socket_11);
+    this->_socket_11 = -1;
+  }
+}
+
+NAN_METHOD(BtL2capHid::Disconnect) {
+  Nan::HandleScope scope;
+  BtL2capHid* p = node::ObjectWrap::Unwrap<BtL2capHid>(info.This());
+
+  p->disconnectSync();
+
+  info.GetReturnValue().SetUndefined();
 }
 
 NAN_METHOD(BtL2capHid::Connect) {
