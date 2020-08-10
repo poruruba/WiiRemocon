@@ -5,8 +5,8 @@ const mqtt = require('mqtt');
 require('dotenv').config();
 
 const MQTT_HOST = process.env.MQTT_HOST || '【MQTTブローカのURL】';
-const MQTT_TOPIC_CMD = process.env.MQTT_TOPIC_CMD || 'testwii_cmd';
-const MQTT_TOPIC_EVT = process.env.MQTT_TOPIC_EVT || 'testwii_evt';
+const MQTT_TOPIC_CMD = process.env.MQTT_TOPIC_CMD || '【In方向のトピック名】';
+const MQTT_TOPIC_EVT = process.env.MQTT_TOPIC_EVT || '【Out方向のトピック名】';
 
 const WIIREMOTE_CMD_EVT = 0x00;
 const WIIREMOTE_CMD_ERR = 0xff;
