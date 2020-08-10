@@ -131,8 +131,8 @@ class WiiRemocon extends EventEmitter{
     return result;
   }
 
-  readBalanceBoardCalibration(){
-    var value = this.readRegisterLong(WIIREMOTE_ADDRESS_BALANCE_CALIBRATION, 0x20);
+  async readBalanceBoardCalibration(){
+    var value = await this.readRegisterLong(WIIREMOTE_ADDRESS_BALANCE_CALIBRATION, 0x20);
     return this.parseBalanceBoardCalibration(value);
   }
 
