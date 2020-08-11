@@ -490,7 +490,7 @@ class WiiRemocon extends EventEmitter{
 
   async enableSound(enable){
     if( enable ){
-      var control = Buffer.from([0x00, 0x00, 0xD0, 0x07, 0x60, 0x00, 0x00 ]); /* 3000Hz 4-bit PCM */
+//      var control = Buffer.from([0x00, 0x00, 0xD0, 0x07, 0x60, 0x00, 0x00 ]); /* 3000Hz 4-bit ADPCM */
       var control = Buffer.from([0x00, 0x40, 0x70, 0x17, 0x60, 0x00, 0x00 ]); /* 2000Hz 8-bit PCM */
 
       await this.setReport(WIIREMOTE_REPORTID_SPEAKER_ENABLE, 0x04);
