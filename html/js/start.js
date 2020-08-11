@@ -109,7 +109,7 @@ var vue_options = {
                 this.update_graph();
             }, this.update_interval);
         },
-        async update_graph(){
+        update_graph: function(){
             myChart_acc.data.datasets[0].data.push(acc_x);
             myChart_acc.data.datasets[1].data.push(acc_y);
             myChart_acc.data.datasets[2].data.push(acc_z);
@@ -142,7 +142,7 @@ var vue_options = {
                 myChart_blc.update();
             }
         },
-        mqtt_onMessagearrived: async function(message){
+        mqtt_onMessagearrived: function(message){
             try{
                 var topic = message.destinationName;
                 if( topic == this.topic_evt){
@@ -226,7 +226,7 @@ var vue_options = {
             this.connected = false;
             this.stop_graph();
         },
-        mqtt_onConnect: async function(){
+        mqtt_onConnect: function(){
             console.log("MQTT.onConnect");
             this.connected = true;
 
@@ -258,7 +258,7 @@ var vue_options = {
                 return;
             wii.readRegisterLong(WIIREMOTE_ADDRESS_BALANCE_CALIBRATION, 0x20);
         },
-        connect_mqtt: async function(){
+        connect_mqtt: function(){
             mqtt_client = new Paho.MQTT.Client(this.mqtt_url, this.client_id );
             mqtt_client.onMessageArrived = this.mqtt_onMessagearrived;
             mqtt_client.onConnectionLost = this.mqtt_onConnectionLost;
@@ -266,6 +266,11 @@ var vue_options = {
             mqtt_client.connect({
                 onSuccess: this.mqtt_onConnect
             });
+        },
+        disconnect_mqtt: function(){
+            if(!this.connected)
+                return;
+            mqtt_client.disconnect();
         },
     },
     created: function(){
