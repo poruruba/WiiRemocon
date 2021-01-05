@@ -3,7 +3,8 @@ var debug = require('debug')('./inquiry');
 var events = require('events');
 var util = require('util');
 
-var BluetoothHciSocket = require('bluetooth-hci-socket');
+//var BluetoothHciSocket = require('bluetooth-hci-socket');
+var BluetoothHciSocket = require('@abandonware/bluetooth-hci-socket');
 
 var HCI_COMMAND_PKT = 0x01;
 var HCI_EVENT_PKT = 0x04;
