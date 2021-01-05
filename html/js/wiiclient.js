@@ -256,6 +256,7 @@ class WiiClient {
         report: data[3],
         error: data[4]
       };
+      return report;
     } else
     if (data[0] == WIIREMOTE_REPORTID_BTNS) {
       var report = {
