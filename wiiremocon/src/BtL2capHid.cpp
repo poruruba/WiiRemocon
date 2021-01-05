@@ -137,7 +137,8 @@ NAN_MODULE_INIT(BtL2capHid::Init) {
   Nan::SetPrototypeMethod(tmpl, "read", Read);
   Nan::SetPrototypeMethod(tmpl, "write", Write);
 
-  target->Set(Nan::New("BtL2capHid").ToLocalChecked(), tmpl->GetFunction());
+//  target->Set(Nan::New("BtL2capHid").ToLocalChecked(), tmpl->GetFunction());
+  Nan::Set(target, Nan::New("BtL2capHid").ToLocalChecked(), Nan::GetFunction(tmpl).ToLocalChecked());
 }
 
 NAN_METHOD(BtL2capHid::New) {
@@ -224,7 +225,8 @@ NAN_METHOD(BtL2capHid::Connect) {
       addr = (unsigned char*)node::Buffer::Data(arg0);
   Local<Value> arg1 = info[1];
   if (arg1->IsInt32() || arg1->IsUint32()) {
-    retry = arg1->IntegerValue();
+//    retry = arg1->IntegerValue();
+    retry = Nan::To<int32_t>(arg1).FromJust();
   }
   auto callback = new Nan::Callback(info[2].As<v8::Function>());
 
@@ -238,7 +240,8 @@ NAN_METHOD(BtL2capHid::Write) {
   int index = 0;
   Local<Value> arg0 = info[0];
   if (arg0->IsInt32() || arg0->IsUint32()) {
-    index = arg0->IntegerValue();
+//    index = arg0->IntegerValue();
+    index = Nan::To<int32_t>(arg0).FromJust();
   }
   Local<Value> arg1 = info[1];
   if (arg1->IsObject()) {
