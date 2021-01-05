@@ -242,7 +242,7 @@ class WiiClient {
       var report = {
         report_id: data[0],
         btns: (((data[1] << 8) | data[2])) & 0x1f9f,
-        size: (data[3] >> 4) & 0x0f + 1,
+        size: ((data[3] >> 4) & 0x0f) + 1,
         error: data[3] & 0x0f,
         address: (data[4] << 8) | data[5],
         data: data.slice(6)
