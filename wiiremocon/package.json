@@ -12,8 +12,10 @@
   "license": "ISC",
   "gypfile": true,
   "dependencies": {
+    "dgram": "^1.0.1",
     "dotenv": "^8.2.0",
     "mqtt": "^4.1.0",
-    "nan": "^2.14.1"
+    "nan": "^2.14.2",
+    "wavefile": "^11.0.0"
   }
 }
