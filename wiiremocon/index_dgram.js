@@ -5,8 +5,8 @@ var dgram = require('dgram').createSocket("udp4");
 const WiiRemocon = require('./wiiremocon');
 require('dotenv').config();
 
-const WII_ADDRESS = process.argv[2] || 'a4:5c:27:1c:b8:63';
-const GAMEPAD_HOST = process.argv[3] || '192.168.1.218';
+const WII_ADDRESS = process.argv[2] || '【WiiのBLEのMacアドレス】';
+const GAMEPAD_HOST = process.argv[3] || '【ESP32のIPアドレス】';
 const GAMEPAD_PORT = process.argv[4] || 8000;
 
 const WIIREMOTE_CMD_EVT = 0x00;
