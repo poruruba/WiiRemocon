@@ -20,11 +20,11 @@
 
 WiFiUDP udp;
 
-#define UDP_RECEVE_PORT   1024
+#define UDP_RECEVE_PORT   8000
 
 const char* wifi_ssid = "【WiFiアクセスポイントのSID】";
 const char* wifi_password = "【WiFiアクセスポイントのパスワード】";
-#define MQTT_BUFFER_SIZE  8000 // MQTT送受信のバッファサイズ
+#define MQTT_BUFFER_SIZE  1024 // MQTT送受信のバッファサイズ
 
 // MQTT Subscribe用
 const int message_capacity = JSON_OBJECT_SIZE(2) + JSON_OBJECT_SIZE(3);
