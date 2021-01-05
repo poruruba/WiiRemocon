@@ -13,7 +13,7 @@
  */
 
 #include <WiFi.h>
-#include <M5StickC.h>
+//#include <M5StickC.h>
 #include "BleGamepad.h" 
 #include <ArduinoJson.h>
 #include <WiFiUdp.h>
