@@ -317,15 +317,17 @@ void loop()
           data[i] = json_message["evt"][i]; 
         WII_REPORT report = parseReporting(data);
         if( report.report_id == WIIREMOTE_REPORTID_BTNS ){
-          Serial.println(report.btns.btns);
           bleGamepad.setButtons(report.btns.btns);
         }else
         if( report.report_id == WIIREMOTE_REPORTID_BTNS_EXT8 ){
           WII_EXTENSION extension = parseExtension(WIIREMOTE_REPORTID_BTNS_EXT8, report.btns_ext8.extension, sizeof(report.btns_ext8.extension));
           bleGamepad.setAxes(extension.nunchuck.stk_x, extension.nunchuck.stk_y);
+        }else{
+          Serial.println("Not support report id");
         }
-
+        
         if(bleGamepad.isConnected()){
+          Serial.println("sendStatus");
           bleGamepad.sendStatus();
         }
       }
