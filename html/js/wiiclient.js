@@ -337,7 +337,7 @@ class WiiClient {
     if (data[0] == WIIREMOTE_REPORTID_EXT21) {
       var report = {
         report_id: data[0],
-        extension: data
+        extension: data.slice(1)
       };
       return report;
     } else
