@@ -197,7 +197,7 @@ void loop()
         WII_REPORT report = parseReporting(data);
         if( report.report_id == WIIREMOTE_REPORTID_BTNS ){
           uint32_t diff = prev_buttons ^ report.btns.btns;
-          bleGamepad.release(diff ^ report.btns.btns);
+          bleGamepad.release(diff ^ (diff & report.btns.btns));
           bleGamepad.press(diff & report.btns.btns);
           prev_buttons = report.btns.btns;
         }else{
