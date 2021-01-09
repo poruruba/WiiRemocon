@@ -43,6 +43,7 @@ async function wiiremote_dgram(){
   await wii.setLed(wii.WIIREMOTE_LED_BIT0 | wii.WIIREMOTE_LED_BIT1 | wii.WIIREMOTE_LED_BIT2 | wii.WIIREMOTE_LED_BIT3, 0); 
   var ret = await wii.requestStatus();
   console.log("requestStatus", ret);
+  await wii.enableExtension(false);
   await wii.setDataReportingMode(wii.WIIREMOTE_REPORTID_BTNS);
 }
 
