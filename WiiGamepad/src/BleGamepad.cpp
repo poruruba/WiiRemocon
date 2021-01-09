@@ -97,6 +97,7 @@ void BleGamepad::sendStatus(void)
 {
   if (this->isConnected())
   {
+    uint8_t m[15];
     m[0] = _buttons;
     m[1] = (_buttons >> 8);
     m[2] = (_buttons >> 16);
