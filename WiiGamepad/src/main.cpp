@@ -19,8 +19,6 @@
 #include <ArduinoJson.h>
 #include <WiFiUdp.h>
 
-WiFiUDP udp;
-
 const char* wifi_ssid = "【WiFiアクセスポイントのSID】";
 const char* wifi_password = "【WiFiアクセスポイントのパスワード】";
 
@@ -33,6 +31,7 @@ StaticJsonDocument<message_capacity> json_message;
 char message_buffer[MQTT_BUFFER_SIZE];
 
 BleGamepad bleGamepad;
+WiFiUDP udp;
 
 WII_EXTENSION parseExtension(int type, const uint8_t *data, uint8_t data_len){
   WII_EXTENSION extension;
