@@ -60,7 +60,6 @@ private:
   char _rX;
   char _rY;
   signed char _hat;
-  uint8_t m[15];
 
   BleConnectionStatus* connectionStatus;
   BLEHIDDevice* hid;
