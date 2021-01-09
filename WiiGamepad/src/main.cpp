@@ -13,7 +13,7 @@
  */
 
 #include <WiFi.h>
-//#include <M5StickC.h>
+#include <M5StickC.h>
 #include "BleGamepad.h" 
 #include <ArduinoJson.h>
 #include <WiFiUdp.h>
@@ -299,7 +299,7 @@ void loop()
 {
   if( udp.parsePacket() ){
     int len = udp.read(message_buffer, sizeof(message_buffer));
-    if( len > 0 ){
+    if( len > 0 && bleGamepad.isConnected() ){
       Serial.printf("received(%d) ", len);
       message_buffer[len] = '\0';
       Serial.printf("%s\n", message_buffer);
@@ -326,10 +326,8 @@ void loop()
           Serial.println("Not support report id");
         }
         
-        if(bleGamepad.isConnected()){
-          Serial.println("sendStatus");
-          bleGamepad.sendStatus();
-        }
+        Serial.println("sendStatus");
+        bleGamepad.sendStatus();
       }
     }
   }
